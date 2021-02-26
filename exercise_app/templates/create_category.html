@@ -2,4 +2,21 @@
 
 {% block content %}
 
+<form method="POST" action="{{ url_for('main.create_category')}}">
+    {{ form.csrf_token }}
+
+    <fieldset>
+        <legend>Enter a new category</legend>
+
+        {{ form.name.label }}
+        {{ form.name }}
+        <ul>
+            {% for error in form.name.errors %}
+                <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>        
+
+        {{ form.submit }}
+    </fieldset>
+</form>
 {% endblock %}

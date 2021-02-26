@@ -2,4 +2,20 @@
 
 {% block content %}
 
+<h1>{{ category.name }}</h1>
+
+<!-- TODO: Print exercises stored in this category -->
+
+<form method="POST" action="{{ url_for('main.category_detail', category_id=category.id) }}">
+    {{ form.csrf_token }}
+    <fieldset>
+        <legend>Edit category name</legend>
+
+        {{ form.name.label }}
+        {{ form.name }}
+
+        {{ form.submit }}
+    </fieldset>
+</form>
+
 {% endblock %}

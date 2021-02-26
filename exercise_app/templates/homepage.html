@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3>Categories</h3>
+<ol>
+    {% for category in all_categories %}
+    <li><a href="/category/{{ category.id }}">{{ category.name }}</a></li>
+    {% endfor %}
+</ol>
+
+<h3>Exercises</h3>
+<ol>
+    {% for exercise in all_exercises %}
+    <li><a href="/exercise/{{ exercise.id }}">{{ exercise.name }}</a></li>
+    {% endfor %}
+</ol>
+
+{% endblock %}

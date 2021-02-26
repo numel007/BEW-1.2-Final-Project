@@ -9,9 +9,9 @@ class ExerciseForm(FlaskForm):
     name = StringField('Exercise Name', validators=[DataRequired(), Length(min=10, max=100)])
     description = StringField('Brief Description', validators=[DataRequired(), Length(min=10, max=300)])
     category = QuerySelectField('Category', query_factory=lambda: Category.query, allow_blank=False)
-    submit = SubmitField('Add Exercise')
+    submit = SubmitField('Submit')
 
 class CategoryForm(FlaskForm):
     '''Category creation form'''
     name = StringField('Category Name', validators=[DataRequired(), Length(min=10, max=100)])
-    submit = SubmitField('Add Category')
+    submit = SubmitField('Submit')
