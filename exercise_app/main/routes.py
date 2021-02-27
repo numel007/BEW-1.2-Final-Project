@@ -111,3 +111,19 @@ def unfavorite(exercise_id):
         db.session.commit()
         flash(f'{exercise.name} removed from your favorites.')
     return redirect(url_for('main.exercise_detail', exercise_id=exercise_id))
+
+@main.route('/delete_category/<category_id>', methods=['POST'])
+@login_required
+def delete_category(category_id):
+    Category.query.filter_by(id=category_id).delete()
+
+    db.session.commit()
+    return redirect(url_for('main.homepage'))
+
+@main.route('/delete_exercise/<exercise_id>', methods=['POST'])
+@login_required
+def delete_exercise(exercise_id):
+    Exercise.query.filter_by(id=exercise_id).delete()
+
+    db.session.commit()
+    return redirect(url_for('main.homepage'))
