@@ -7,6 +7,18 @@
 <p>Description: {{ exercise.description }}</p>
 <p>Muscle group: {{ exercise.category }}</p>
 
+{% if current_user.is_authenticated %}
+    {% if exercise not in current_user.favorite_exercises %}
+    <form action='/favorite/{{ exercise.id }}' method='POST'>
+        <input type='submit' value='Add to favorites'>
+    </form>
+    {% else %}
+    <form action='/unfavorite/{{ exercise.id }}' method='POST'>
+        <input type='submit' value='Remove from favorites'>
+    </form>
+    {% endif %}
+{% endif %}
+
 <form method='POST' action="{{ url_for('main.exercise_detail', exercise_id=exercise.id) }}">
     {{ form.csrf_token }}
     <fieldset>

@@ -6,7 +6,7 @@
 
     <ul>
         {% for exercise in user.favorite_exercises %}
-        <li><a href="/exercise/{{ exercise.id }}">{{ exercise.title }}</a></li>
+        <li><a href="/exercise/{{ exercise.id }}">{{ exercise.name }}</a></li>
         {% endfor %}
     </ul>
 </p>

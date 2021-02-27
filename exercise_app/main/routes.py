@@ -79,6 +79,31 @@ def exercise_detail(exercise_id):
     return render_template('exercise_detail.html', exercise=exercise, form=form)
 
 @main.route('/profile/<username>')
+@login_required
 def profile(username):
     user = User.query.filter_by(username=username).one()
     return render_template('profile.html', user=user)
+
+@main.route('/favorite/<exercise_id>', methods=['POST'])
+def favorite(exercise_id):
+    exercise = Exercise.query.filter_by(id=exercise_id).one()
+    if exercise in current_user.favorite_exercises:
+        flash(f'{exercise.name} already in your favorites.')
+    else:
+        current_user.favorite_exercises.append(exercise)
+        db.session.add(current_user)
+        db.session.commit()
+        flash(f'{exercise.name} added to your favorites.')
+    return redirect(url_for('main.exercise_detail', exercise_id=exercise_id))
+
+@main.route('/unfavorite/<exercise_id>', methods=['POST'])
+def unfavorite(exercise_id):
+    exercise = Exercise.query.filter_by(id=exercise_id).one()
+    if exercise not in current_user.favorite_exercises:
+        flash(f'{exercise.name} not in your favorites. Add it first.')
+    else:
+        current_user.favorite_exercises.remove(exercise)
+        db.session.add(current_user)
+        db.session.commit()
+        flash(f'{exercise.name} removed from your favorites.')
+    return redirect(url_for('main.exercise_detail', exercise_id=exercise_id))
