@@ -148,3 +148,6 @@ dmypy.json
 .prof
 
 # End of https://www.toptal.com/developers/gitignore/api/flask
+/exercise_app/database.db
+/exercise_app/__pycache__
+/exercise_app/main/__pycache__
