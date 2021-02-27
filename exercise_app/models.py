@@ -17,6 +17,9 @@ class Category(db.Model):
     name = db.Column(db.String(80), nullable = False)
     exercises = db.relationship('Exercise', back_populates='category')
 
+    # category = Category.query.filter_by(id=1).one()
+    # exercises_in_cat = category.exercises
+
 class User(UserMixin, db.Model):
     '''User model'''
     id = db.Column(db.Integer, primary_key = True)

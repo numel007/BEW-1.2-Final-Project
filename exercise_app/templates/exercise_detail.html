@@ -2,4 +2,41 @@
 
 {% block content %}
 
+<h1>{{ exercise.name }}</h1>
+
+<p>Description: {{ exercise.description }}</p>
+<p>Muscle group: {{ exercise.category }}</p>
+
+<form method='POST' action="{{ url_for('main.exercise_detail', exercise_id=exercise.id) }}">
+    {{ form.csrf_token }}
+    <fieldset>
+        <legend>Edit exercise</legend>
+        {{ form.name.label }}
+        {{ form.name }}
+        <ul>
+            {% for error in form.name.errors %}
+                <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+
+        {{ form.description.label }}
+        {{ form.description }}
+        <ul>
+            {% for error in form.description.errors %}
+                <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+        
+        {{ form.category.label }}
+        {{ form.category }}
+        <ul>
+            {% for error in form.category.errors %}
+                <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+
+        {{ form.submit }}
+    </fieldset>
+</form>
+
 {% endblock %}

@@ -35,6 +35,7 @@ def create_category():
 @main.route('/category/<category_id>', methods=['POST', 'GET'])
 def category_detail(category_id):
     category = Category.query.filter_by(id=category_id).one()
+    exercises_in_cat = category.exercises
     form = CategoryForm(obj=category)
 
     if form.validate_on_submit():
@@ -43,4 +44,36 @@ def category_detail(category_id):
         db.session.commit()
         flash('Category name updated')
         return redirect(url_for('main.category_detail', category_id=category_id))
-    return render_template('category_detail.html', category=category, form=form)
+    return render_template('category_detail.html', category=category, form=form, exercises=exercises_in_cat)
+
+@main.route('/create_exercise', methods=['POST', 'GET'])
+def create_exercise():
+    form = ExerciseForm()
+
+    if form.validate_on_submit():
+        new_exercise = Exercise(
+            name = form.name.data,
+            description = form.description.data,
+            category = form.category.data
+        )
+        db.session.add(new_exercise)
+        db.session.commit()
+
+        flash('New exercise added')
+        return redirect(url_for('main.exercise_detail', exercise_id=new_exercise.id))
+    return render_template('create_exercise.html', form=form)
+
+@main.route('/exercise/<exercise_id>', methods=['POST', 'GET'])
+def exercise_detail(exercise_id):
+    exercise = Exercise.query.filter_by(id=exercise_id).one()
+    form = ExerciseForm(obj=exercise)
+
+    if form.validate_on_submit():
+        exercise.name = form.name.data
+        exercise.description = form.description.data
+        exercise.category = form.category.data
+
+        db.session.commit()
+        flash('Exercise updated')
+        return redirect(url_for('main.exercise_detail', exercise_id=exercise_id))
+    return render_template('exercise_detail.html', exercise=exercise, form=form)
