@@ -6,12 +6,12 @@ from exercise_app.models import Category, Exercise
 
 class ExerciseForm(FlaskForm):
     '''Exercise creation form'''
-    name = StringField('Exercise Name', validators=[DataRequired(), Length(min=1, max=100)])
-    description = StringField('Brief Description', validators=[DataRequired(), Length(min=1, max=300)])
+    name = StringField('Exercise Name', validators=[DataRequired(), Length(min=3, max=100)])
+    description = StringField('Brief Description', validators=[DataRequired(), Length(min=3, max=300)])
     category = QuerySelectField('Category', query_factory=lambda: Category.query, allow_blank=False)
     submit = SubmitField('Submit')
 
 class CategoryForm(FlaskForm):
     '''Category creation form'''
-    name = StringField('Category Name', validators=[DataRequired(), Length(min=1, max=100)])
+    name = StringField('Category Name', validators=[DataRequired(), Length(min=3, max=100)])
     submit = SubmitField('Submit')
