@@ -18,6 +18,7 @@ def homepage():
     return render_template('homepage.html', all_categories=all_categories, all_exercises=all_exercises)
 
 @main.route('/create_category', methods=['POST', 'GET'])
+@login_required
 def create_category():
     form = CategoryForm()
 
@@ -47,6 +48,7 @@ def category_detail(category_id):
     return render_template('category_detail.html', category=category, form=form, exercises=exercises_in_cat)
 
 @main.route('/create_exercise', methods=['POST', 'GET'])
+@login_required
 def create_exercise():
     form = ExerciseForm()
 
@@ -85,6 +87,7 @@ def profile(username):
     return render_template('profile.html', user=user)
 
 @main.route('/favorite/<exercise_id>', methods=['POST'])
+@login_required
 def favorite(exercise_id):
     exercise = Exercise.query.filter_by(id=exercise_id).one()
     if exercise in current_user.favorite_exercises:
@@ -97,6 +100,7 @@ def favorite(exercise_id):
     return redirect(url_for('main.exercise_detail', exercise_id=exercise_id))
 
 @main.route('/unfavorite/<exercise_id>', methods=['POST'])
+@login_required
 def unfavorite(exercise_id):
     exercise = Exercise.query.filter_by(id=exercise_id).one()
     if exercise not in current_user.favorite_exercises:
