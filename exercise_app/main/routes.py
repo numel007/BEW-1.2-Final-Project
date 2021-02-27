@@ -77,3 +77,8 @@ def exercise_detail(exercise_id):
         flash('Exercise updated')
         return redirect(url_for('main.exercise_detail', exercise_id=exercise_id))
     return render_template('exercise_detail.html', exercise=exercise, form=form)
+
+@main.route('/profile/<username>')
+def profile(username):
+    user = User.query.filter_by(username=username).one()
+    return render_template('profile.html', user=user)
