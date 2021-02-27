@@ -17,9 +17,6 @@ class Category(db.Model):
     name = db.Column(db.String(80), nullable = False)
     exercises = db.relationship('Exercise', back_populates='category')
 
-    # category = Category.query.filter_by(id=1).one()
-    # exercises_in_cat = category.exercises
-
 class User(UserMixin, db.Model):
     '''User model'''
     id = db.Column(db.Integer, primary_key = True)
@@ -31,8 +28,3 @@ favorite_user_exercises = db.Table('favorite_exercises_table',
     db.Column('exercise_id', db.Integer, db.ForeignKey('exercise.id')),
     db.Column('user_id', db.Integer, db.ForeignKey('user.id'))
 )
-
-# exercises_in_categories = db.Table('exercises_categories', 
-#     db.Column('exercise_id', db.Integer, db.ForeignKey('exercise.id')),
-#     db.Column('category_id', db.Integer, db.ForeignKey('category.id'))
-# )

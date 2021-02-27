@@ -151,3 +151,4 @@ dmypy.json
 /exercise_app/database.db
 /exercise_app/__pycache__
 /exercise_app/main/__pycache__
+/exercise_app/auth/__pycache__
